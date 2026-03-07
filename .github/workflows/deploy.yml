@@ -3,7 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # Allow triggering when warpkit docs change
+  repository_dispatch:
+    types: [warpkit-docs-updated]
   workflow_dispatch:
 
 permissions:
