@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/Docs.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const guideEntries = (await getCollection('guide'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const guideIcons: Record<string, string> = {
+  '01-introduction': '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  '02-quick-start': '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  '03-state-based-routing': '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  '04-navigation-pipeline': '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
+  '05-provider-system': '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h3v3H7z"/><path d="M14 7h3v3h-3z"/><path d="M7 14h3v3H7z"/><path d="M14 14h3v3h-3z"/>',
+  '06-data-fetching': '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+  '07-forms': '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  '08-websockets': '<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/>',
+  '09-authentication': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  '10-testing': '<path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16.5h10"/>',
+  '11-architecture': '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+};
+---
+
+<DocsLayout title="Guide" description="Comprehensive walkthrough of WarpKit" section="guide">
+  <h1>WarpKit Guide</h1>
+  <p class="intro">
+    A comprehensive walkthrough covering everything from first setup to advanced architecture.
+    Follow the chapters in order, or jump to what you need.
+  </p>
+
+  <div class="chapter-list">
+    {guideEntries.map((entry, i) => {
+      const icon = guideIcons[entry.id];
+      return (
+        <a href={`${base}/guide/${entry.id}`} class="chapter-card">
+          {icon && (
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <Fragment set:html={icon} />
+            </svg>
+          )}
+          <div class="chapter-info">
+            <h3>{entry.data.title}</h3>
+            {entry.data.description && <p>{entry.data.description}</p>}
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</DocsLayout>
+
+<style>
+  .intro {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 40px;
+    max-width: 55ch;
+  }
+
+  .chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--amber);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .chapter-card:hover .card-icon {
+    opacity: 1;
+  }
+
+  .chapter-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    background: rgba(12, 18, 34, 0.2);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    transition: border-color 0.2s, transform 0.15s, background 0.2s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chapter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-shine);
+    pointer-events: none;
+  }
+
+  .chapter-card:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateX(4px);
+  }
+
+
+  .chapter-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin: 0 0 4px;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .chapter-info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

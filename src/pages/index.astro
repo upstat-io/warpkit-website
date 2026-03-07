@@ -1,0 +1,440 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.svelte';
+import Starfield from '../components/Starfield.svelte';
+import FeatureCard from '../components/FeatureCard.svelte';
+import HeroCode from '../components/HeroCode.svelte';
+import Footer from '../components/Footer.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="WarpKit — Svelte 5 SPA Framework">
+  <Starfield client:load />
+  <Nav client:load />
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-badge">Alpha Release</div>
+        <h1>Navigate your app<br/>at <span class="hero-warp">warp speed</span></h1>
+        <p class="hero-sub">
+          A Svelte 5 framework for SPAs. State-based routing, data fetching,
+          schema-driven forms, and real-time capabilities — all in one stack.
+        </p>
+        <div class="hero-actions">
+          <a href={`${base}/docs`} class="btn btn-primary">Get Started</a>
+          <a href="https://github.com/upstat-io/warpkit" class="btn btn-glass" target="_blank" rel="noopener noreferrer">
+            View on GitHub
+          </a>
+        </div>
+        <!-- LCARS-subtle decorative bar -->
+        <div class="lcars-bar hero-bar">
+          <span class="seg-amber" style="flex: 4"></span>
+          <span class="seg-mauve" style="flex: 1.5"></span>
+          <span class="seg-cyan" style="flex: 2.5"></span>
+          <span class="seg-coral" style="flex: 0.8"></span>
+          <span class="seg-amber" style="flex: 1"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODE EXAMPLE -->
+    <section class="code-section">
+      <div class="container">
+        <div class="code-layout">
+          <div class="code-intro">
+            <h2>Ship fast,<br/>stay organized</h2>
+            <p>
+              Routes organized by application state. Every navigation flows through
+              a predictable pipeline. Auth, data, and forms just work.
+            </p>
+          </div>
+          <HeroCode client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Core capabilities</span>
+          <h2>Everything you need to build</h2>
+        </div>
+        <div class="feature-grid">
+          <FeatureCard
+            client:visible
+            title="State-Based Routing"
+            description="Routes organized by application state — authenticated, onboarding, admin. The router knows where users belong."
+            accent="amber"
+          />
+          <FeatureCard
+            client:visible
+            title="Navigation Pipeline"
+            description="Every navigation flows through 10 predictable phases. Guards, middleware, data loading — in a defined order."
+            accent="mauve"
+          />
+          <FeatureCard
+            client:visible
+            title="Auth Agnostic"
+            description="Bring your own auth. Firebase, Auth0, or custom — WarpKit provides the adapter pattern, you provide the provider."
+            accent="cyan"
+          />
+          <FeatureCard
+            client:visible
+            title="Data Layer"
+            description="Config-driven data fetching with E-Tag caching, stale-while-revalidate, and automatic refetching built in."
+            accent="coral"
+          />
+          <FeatureCard
+            client:visible
+            title="Schema-Driven Forms"
+            description="Deep proxy binding with StandardSchema validation. Zod, TypeBox — pick your validator, WarpKit handles the rest."
+            accent="amber"
+          />
+          <FeatureCard
+            client:visible
+            title="Real-Time WebSockets"
+            description="Type-safe messages, rooms, and automatic reconnection. First-class real-time without the boilerplate."
+            accent="mauve"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="packages">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Modular by design</span>
+          <h2>Pick what you need</h2>
+        </div>
+        <div class="pkg-list">
+          <div class="pkg glass">
+            <code class="pkg-name">@upstat/warpkit</code>
+            <span class="pkg-desc">Router, state machine, components</span>
+          </div>
+          <div class="pkg glass">
+            <code class="pkg-name">@warpkit/data</code>
+            <span class="pkg-desc">Data fetching, caching, mutations</span>
+          </div>
+          <div class="pkg glass">
+            <code class="pkg-name">@warpkit/cache</code>
+            <span class="pkg-desc">Memory, Storage, E-Tag caches</span>
+          </div>
+          <div class="pkg glass">
+            <code class="pkg-name">@warpkit/forms</code>
+            <span class="pkg-desc">Schema-driven form management</span>
+          </div>
+          <div class="pkg glass">
+            <code class="pkg-name">@warpkit/validation</code>
+            <span class="pkg-desc">StandardSchema validation</span>
+          </div>
+          <div class="pkg glass">
+            <code class="pkg-name">@warpkit/websocket</code>
+            <span class="pkg-desc">WebSocket client with reconnection</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="install-section">
+      <div class="container">
+        <div class="install-card glass">
+          <h2>Start building</h2>
+          <div class="install-cmd">
+            <code>npm install @upstat/warpkit @warpkit/data @warpkit/cache</code>
+          </div>
+          <div class="install-actions">
+            <a href={`${base}/docs`} class="btn btn-primary">Read the docs</a>
+            <a href={`${base}/guide`} class="btn btn-glass">Follow the guide</a>
+          </div>
+          <div class="lcars-bar" style="margin-top: 32px">
+            <span class="seg-cyan" style="flex: 2"></span>
+            <span class="seg-amber" style="flex: 4"></span>
+            <span class="seg-mauve" style="flex: 1"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:load />
+</Base>
+
+<style>
+  main {
+    padding-top: 60px;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    padding: 100px 0 80px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--amber);
+    background: var(--amber-glow);
+    border: var(--border-weight) solid rgba(245, 166, 35, 0.2);
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--text-bright);
+    max-width: 700px;
+  }
+
+  .hero-warp {
+    background: linear-gradient(135deg, var(--amber), var(--mauve));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    text-align: center;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .hero-bar {
+    margin-top: 64px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* --- BUTTONS --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    transition: transform 0.15s, background 0.2s;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-primary {
+    background: var(--amber);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background: #fdb644;
+    color: var(--bg);
+  }
+
+  .btn-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--border-weight) solid var(--glass-border);
+    color: var(--text);
+  }
+
+  .btn-glass:hover {
+    border-color: var(--glass-border-hover);
+    color: var(--text-bright);
+  }
+
+  /* --- CODE SECTION --- */
+  .code-section {
+    padding: 80px 0;
+  }
+
+  .code-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .code-intro h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .code-intro p {
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  /* --- FEATURES --- */
+  .features {
+    padding: 80px 0;
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--amber);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    letter-spacing: -0.015em;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  /* --- PACKAGES --- */
+  .packages {
+    padding: 80px 0;
+  }
+
+  .pkg-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .pkg {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .pkg:hover {
+    border-color: var(--glass-border-hover);
+  }
+
+  .pkg-name {
+    font-size: 0.85rem;
+    color: var(--amber);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .pkg-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  /* --- INSTALL --- */
+  .install-section {
+    padding: 60px 0;
+  }
+
+  .install-card {
+    padding: 48px;
+    text-align: center;
+  }
+
+  .install-card h2 {
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .install-cmd {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.4);
+    border: var(--border-weight) solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 14px 28px;
+    margin-bottom: 28px;
+  }
+
+  .install-cmd code {
+    font-size: 0.88rem;
+    color: var(--text);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .install-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .code-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pkg-list {
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .install-card {
+      padding: 32px 20px;
+    }
+
+    .install-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pkg-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

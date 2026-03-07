@@ -1,0 +1,17 @@
+{
+  "name": "warpkit-website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --port 4323",
+    "build": "astro build",
+    "preview": "astro preview --port 4323",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/svelte": "^7.2.5",
+    "astro": "^5.17.1",
+    "svelte": "^5.0.0"
+  }
+}

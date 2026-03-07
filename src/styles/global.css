@@ -1,0 +1,223 @@
+/* ============================================
+   WARPKIT — TNG-INSPIRED GLASSY STYLESHEET
+   ============================================ */
+
+/* --- FONTS --- */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- RESET --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- VARIABLES --- */
+:root {
+  /* Deep space background */
+  --bg: #060a14;
+  --bg-raised: #0c1222;
+  --bg-surface: #111a2e;
+
+  /* Text */
+  --text: #c8d0e0;
+  --text-muted: #7a8599;
+  --text-bright: #eef1f7;
+
+  /* TNG-inspired accents */
+  --amber: #f5a623;
+  --amber-dim: #c4841c;
+  --amber-glow: rgba(245, 166, 35, 0.15);
+  --mauve: #c4a0e8;
+  --mauve-dim: #9b7aba;
+  --mauve-glow: rgba(196, 160, 232, 0.12);
+  --cyan: #7dd3fc;
+  --cyan-dim: #5ab0d6;
+  --cyan-glow: rgba(125, 211, 252, 0.1);
+  --coral: #e07a5f;
+
+  /* Glass */
+  --glass-bg: rgba(12, 18, 34, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-blur: 24px;
+  --glass-shine: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+
+  /* Layout */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --border-weight: 1px;
+  --gutter: 24px;
+  --max-width: 1200px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+}
+
+/* --- BASE --- */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 80px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--text-bright);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--amber);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--text-bright);
+}
+
+::selection {
+  background: rgba(245, 166, 35, 0.3);
+  color: var(--text-bright);
+}
+
+/* --- CODE (LCARS-framed) --- */
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  padding: 18px 22px;
+  overflow-x: auto;
+  background: rgba(6, 10, 20, 0.7);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--border-weight) solid var(--glass-border);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  transition: border-left-color 0.2s;
+}
+
+pre:hover {
+  border-left-color: var(--mauve);
+}
+
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+:not(pre) > code {
+  background: rgba(255, 255, 255, 0.06);
+  border: var(--border-weight) solid var(--glass-border);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: var(--amber);
+}
+
+/* --- GLASS PANEL --- */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--border-weight) solid var(--glass-border);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glass-shine);
+  pointer-events: none;
+}
+
+/* --- LCARS ACCENT BAR --- */
+.lcars-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  height: 6px;
+}
+
+.lcars-bar span {
+  flex: 1;
+  border-radius: var(--radius-pill);
+}
+
+.lcars-bar .seg-amber { background: var(--amber); }
+.lcars-bar .seg-mauve { background: var(--mauve); }
+.lcars-bar .seg-cyan { background: var(--cyan); }
+.lcars-bar .seg-coral { background: var(--coral); }
+
+/* --- UTILITY --- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
