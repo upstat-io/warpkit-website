@@ -26,8 +26,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: upstat-io/warpkit
-          path: ../warpkit
+          path: warpkit
           token: ${{ secrets.WARPKIT_PAT || github.token }}
+
+      - name: Symlink warpkit for content collections
+        run: ln -s "$GITHUB_WORKSPACE/warpkit" "$GITHUB_WORKSPACE/../warpkit"
 
       - name: Setup Node
         uses: actions/setup-node@v4
