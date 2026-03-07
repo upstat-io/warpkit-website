@@ -3,11 +3,26 @@ interface Props {
   title: string;
   description?: string;
   ogType?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description = 'Svelte 5 SPA framework with state-based routing, data fetching, forms, and real-time capabilities.', ogType = 'website' } = Astro.props;
+const { title, description = 'Svelte 5 SPA framework with state-based routing, data fetching, forms, and real-time capabilities.', ogType = 'website', jsonLd } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${base}/og-image.png`, Astro.site).href;
+
+const defaultJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "WarpKit",
+  "description": description,
+  "url": "https://warpkit.dev",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+};
+
+const structuredData = jsonLd || defaultJsonLd;
 ---
 
 <!doctype html>
@@ -16,6 +31,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#060a14" />
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL.href} />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
@@ -32,23 +48,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:site_name" content="WarpKit" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "WarpKit",
-      "description": description,
-      "url": "https://warpkit.dev",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <slot />

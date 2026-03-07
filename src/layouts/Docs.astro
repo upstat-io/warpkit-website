@@ -15,11 +15,28 @@ interface Props {
 const { title, description, section, staticStars = false } = Astro.props;
 const currentPath = Astro.url.pathname;
 const sectionTitle = section === 'guide' ? 'Guide' : 'API Reference';
+const fullTitle = `${title} — WarpKit ${sectionTitle}`;
+const fullDescription = description || `${title} — WarpKit ${sectionTitle}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": fullTitle,
+  "description": fullDescription,
+  "url": new URL(currentPath, Astro.site).href,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Upstat",
+    "url": "https://upstat.io",
+  },
+};
 ---
 
 <Base
-  title={`${title} — WarpKit ${sectionTitle}`}
-  description={description || `${title} — WarpKit ${sectionTitle}`}
+  title={fullTitle}
+  description={fullDescription}
+  ogType="article"
+  jsonLd={jsonLd}
 >
   <Starfield static={staticStars} client:load />
   <Nav client:load />
