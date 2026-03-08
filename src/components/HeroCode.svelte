@@ -1,5 +1,5 @@
 <script lang="ts">
-  const code = `<span class="kw">import</span> { createRoute, createStateRoutes } <span class="kw">from</span> <span class="str">'@upstat/warpkit'</span>;
+  const code = `<span class="kw">import</span> { createRoute, createStateRoutes } <span class="kw">from</span> <span class="str">'@warpkit/core'</span>;
 
 <span class="kw">export const</span> routes = <span class="fn">createStateRoutes</span>({
   <span class="key">unauthenticated</span>: {

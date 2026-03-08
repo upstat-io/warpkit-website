@@ -152,7 +152,7 @@ public/
 
 | Package | Description |
 | ------- | ----------- |
-| `@upstat/warpkit` | Router, state machine, events, components |
+| `@warpkit/core` | Router, state machine, events, components |
 | `@warpkit/data` | Data fetching, caching, mutations |
 | `@warpkit/cache` | Cache implementations (Memory, Storage, E-Tag) |
 | `@warpkit/forms` | Schema-driven form state management |
